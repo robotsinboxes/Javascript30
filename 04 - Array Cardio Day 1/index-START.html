@@ -9,7 +9,7 @@
   <script>
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
-
+    console.log('hello world');
     // Some data we can work with
 
     const inventors = [
@@ -35,33 +35,124 @@
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
     
-    // Array.prototype.filter()
+    // TODO: Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
-    const inventorYears = inventors.filter()
 
+  const born1500s = inventors.filter(inventors => (inventors.year >= 1500 && inventors.year < 1600));
+  console.table(born1500s);
+  
+  // function born1500s() {
+  //   console.log('Inventors born in the 1500s:');
+  //   for (let i = 0; i < inventors.length; i++) {
+  //     if ((inventors[i].year >= 1500) && (inventors[i].year <= 1599)) {
+  //       console.log(inventors[i].first + ', ' + inventors[i].last);
+  //     } 
+  //   }
+  // };
+  // born1500s();
 
-
-    // Array.prototype.map()
+    // TODO: Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
 
-    // Array.prototype.sort()
+  const inventorNames = [];
+  for (let i = 0; i < inventors.length; i++) {
+    inventorNames.push(inventors[i].first + ', ' + inventors[i].last);
+  } 
+  console.table(inventorNames);
+
+    // TODO: Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
-    // Array.prototype.reduce()
+  inventors.sort((a, b) => {
+    if (a.year > b.year) {
+      return 1;
+    } else {
+      return -1;
+    }
+  })
+  console.log(inventors)
+
+    // TODO: Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
 
-    // 5. Sort the inventors by years lived
+  const livedYears = [];
+  for (let i = 0; i < inventors.length; i++) {
+    livedYears.push(inventors[i].passed - inventors[i].year);
+  }
+  console.log(livedYears);
+  const totalYears = livedYears.reduce((total, amount) => total + amount);
+  console.log(totalYears);
+  
+    // TODO: 5. Sort the inventors by years lived
 
-    // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+  livedYears.sort((a, b) => {
+    if (a < b) {
+      return 1;
+    } else {
+      return -1;
+    }
+  })
+  console.log(livedYears);
+
+    // TODO: 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+  // first get the DOM element out of the page by inspecting to find what element contains all items:
+    // const streetList = document.querySelector('.mw-body-content');
 
-    // 7. sort Exercise
+  // find all links within that div and turn them into an array (currently just a NodeList) in order to use the .map method on it. The spread operator essentially takes all items within that query selector and puts them in the streets[] 
+    // const streets = [...streetList.querySelectorAll('a')];
+
+  // filter through to pull out all textContent within the a tags array, then filter through to find all the textContent with 'de' in it
+    // const de = streets
+    //          .map(street => street.textContent)
+    //          .filter(streetName => streetName.includes('de'));
+
+    // TODO: 7. sort Exercise
     // Sort the people alphabetically by last name
+
+  const alpha = people.sort((lastOne, nextOne) => {
+      // convert them into two arrays of first and last names by splitting them
+      const [lastLast, lastFirst] = lastOne.split(', ');
+      const [nextLast, nextFirst] = nextOne.split(', ');
+      // compare last names for both lastOne and nextOne, then sort ascending alphabetically
+      return lastLast > nextLast ? 1 : -1;
+  })
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+  const transportation = data.reduce((obj, item) => {
+    // if there is no item already accounted for, create it and set it to 0
+    if (!obj[item]) {
+      obj[item] = 0;
+    }  
+    // then you add one to that item, and return the object
+    obj[item]++
+    return obj;
+    // below is the empty object created for the output to go
+  }, {})
+
+  // let totalCars = 0;
+  // let totalTrucks = 0;
+  // let totalVans = 0;
+  // let totalBikes = 0;
+  // let totalWalks = 0;
+
+  // for (let i = 0; i < data.length; i++) {
+  //   if (data[i] === 'car') {
+  //     totalCars++;
+  //   } else if (data[i] === 'truck') {
+  //     totalTrucks++;
+  //   }  else if (data[i] === 'van') {
+  //     totalVans++;
+  //   }  else if (data[i] === 'bike') {
+  //     totalBikes++;
+  //   }  else if (data[i] === 'walk') {
+  //     totalWalks++;
+  //   }
+  // }
 
   </script>
 </body>
