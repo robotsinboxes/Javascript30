@@ -40,6 +40,7 @@
     });
   }
 
+  // use commas in the population totals
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
@@ -48,17 +49,20 @@
   function displayMatches() {
     // pass in what is in the seach box and compare to cities array
     const matchArray = findMatches(this.value, cities);
-    //
+    // loop over the matchArray and for each city match 
     const html = matchArray.map(place => {
       const regex = new RegExp(this.value, 'gi');
+      // take matching city or state, put it in a span with a class of 'hl' to highlight letters types and store in  variables
       const cityName = place.city.replace(regex, `<span class='hl'>${this.value}</span>`);
       const stateName = place.state.replace(regex, `<span class='hl'>${this.value}</span>`);
+      // return each city/state as a list item to display on the page
       return `
         <li>
           <span class="name">${cityName}, ${stateName}</span>
           <span class="population">${numberWithCommas(place.population)}</span>
         </li>
       `;
+    //.map returns an array, but we want a string
     }).join('')
     suggestions.innerHTML = html;
   }
